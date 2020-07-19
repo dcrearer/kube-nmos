@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nmos-node
+  name: nmos-node
+  namespace: nmos-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nmos-node
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nmos-node
+    spec:
+      containers:
+      - env:
+        - name: RUN_NODE
+          value: "TRUE"
+        image: docker.io/rhastie/nmos-cpp
+        imagePullPolicy: IfNotPresent
+        name: nmos-node
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: 11000
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 250m
+            memory: 512Mi
+          requests:
+            cpu: 250m
+            memory: 512Mi
+      dnsConfig:
+        nameservers:
+        - 10.96.0.10
+        searches:
+        - local
+      dnsPolicy: None
+      restartPolicy: Always

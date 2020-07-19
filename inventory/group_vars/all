@@ -1,0 +1,7 @@
+registry: ./deployment/nmos-registry.yml
+node: ./deployment/nmos-node.yml
+testing: ./deployment/nmos-testing.yml
+
+registry_svc: ./service/nmos-registry-svc.yml
+node_svc: ./service/nmos-node-svc.yml
+testing_svc: ./service/nmos-testing-svc.yml

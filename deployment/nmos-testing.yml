@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nmos-testing
+  name: nmos-testing
+  namespace: nmos-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nmos-testing
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: nmos-testing
+    spec:
+      containers:
+      - image: docker.io/amwa/nmos-testing
+        imagePullPolicy: IfNotPresent
+        name: nmos-testing
+        readinessProbe:
+          failureThreshold: 10
+          httpGet:
+            path: /
+            port: 5000
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 200m
+            memory: 512Mi
+          requests:
+            cpu: 200m
+            memory: 512Mi
