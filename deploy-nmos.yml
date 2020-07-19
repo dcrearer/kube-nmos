@@ -24,4 +24,4 @@
       loop:
         - "{{ registry_svc }}"
         - "{{ node_svc }}"
-        - "{{ testing_svc}}"
+        - "{{ testing_svc }}"
