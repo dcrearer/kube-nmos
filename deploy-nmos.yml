@@ -1,4 +1,4 @@
-- name: deploy nmos implementionn
+- name: deploy nmos registry and node implemention
   k8s:
     state: present
     src: "{{ item }}"
