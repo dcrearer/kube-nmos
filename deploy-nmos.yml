@@ -1,27 +1,21 @@
-- name: nmos testing environnment
-  hosts: localhost
-  gather_facts: false
-  
-  tasks:
+- name: deploy nmos implementionn
+  k8s:
+    state: present
+    src: "{{ item }}"
+  loop:
+    - "{{ registry }}"
+    - "{{ node }}"
 
-    - name: deploy nmos implementionn
-      k8s:
-        state: present
-        src: "{{ item }}"
-      loop:
-        - "{{ registry }}"
-        - "{{ node }}"
+- name: deploy amwa nmos testing 
+  k8s:
+    state: present
+    src: "{{ testing }}"
 
-    - name: deploy amwa nmos testing 
-      k8s:
-        state: present
-        src: "{{ testing }}"
-
-    - name: deploy nmos services
-      k8s:
-          state: present
-          src: "{{ item }}"
-      loop:
-        - "{{ registry_svc }}"
-        - "{{ node_svc }}"
-        - "{{ testing_svc }}"
+- name: deploy nmos services
+  k8s:
+      state: present
+      src: "{{ item }}"
+  loop:
+    - "{{ registry_svc }}"
+    - "{{ node_svc }}"
+    - "{{ testing_svc }}"
