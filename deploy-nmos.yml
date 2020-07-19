@@ -3,19 +3,19 @@
     state: present
     src: "{{ item }}"
   loop:
-    - "{{ registry }}"
-    - "{{ node }}"
+    - ./deployment/nmos-registry.yml
+    - ./deployment/nmos-node.yml
 
 - name: deploy amwa nmos testing 
   k8s:
     state: present
-    src: "{{ testing }}"
+    src: ./deployment/nmos-testing.yml
 
 - name: deploy nmos services
   k8s:
-      state: present
-      src: "{{ item }}"
+    state: present
+    src: "{{ item }}"
   loop:
-    - "{{ registry_svc }}"
-    - "{{ node_svc }}"
-    - "{{ testing_svc }}"
+    - ./service/nmos-registry-svc.yml
+    - ./service/nmos-node-svc.yml
+    - ./service/nmos-testing-svc.yml
