@@ -25,7 +25,7 @@ spec:
         - name: RUN_NODE
           value: "TRUE"
         image: docker.io/rhastie/nmos-cpp
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: nmos-node
         readinessProbe:
           failureThreshold: 3

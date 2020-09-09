@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - image: docker.io/amwa/nmos-testing
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: nmos-testing
         readinessProbe:
           failureThreshold: 10

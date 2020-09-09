@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - image: docker.io/rhastie/nmos-cpp
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: nmos-registry
         readinessProbe:
           failureThreshold: 3
